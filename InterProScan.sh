@@ -4,7 +4,7 @@
 #SBATCH --job-name=Testinterpro
 #
 # Project:
-#SBATCH --account=uio
+#SBATCH --account=cees
 #
 # Wall clock limit:
 # Max memory usage:
@@ -15,8 +15,8 @@ source /cluster/bin/jobsetup
 module load interproscan
 
 ## Copy input files to the work directory:
-cp test_proteins.fasta $SCRATCH
+cp /usit/abel/u1/mortema/genome/test_genome.maker.output/test_genome.all.maker.proteins.fasta $SCRATCH
 
 ## Do some work:
 cd $SCRATCH
-interproscan.sh -dp -i test_proteins.fasta -f tsv -b ~/resultr3 -T /tmp/
+interproscan.sh -dp -i test_genome.all.maker.proteins.fasta -f tsv -b ~/resultr3 -T /tmp/
