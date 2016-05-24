@@ -1,4 +1,5 @@
-# running interproscan on abel.uio.no
+# running interproscan in cluster mode on abel.uio.no
+# requires that interproscan.properties are edited to srun
 
 module load python2
 
