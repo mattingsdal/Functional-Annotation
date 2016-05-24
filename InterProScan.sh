@@ -7,6 +7,5 @@ srun --mem-per-cpu=4G --time=04:00:00 --account=cees --cpus-per-task=8 --ntasks=
 -dp -i test_genome.all.maker.proteins.fasta -f tsv,xml,gff3,html \
 -b /usit/abel/u1/mortema/genome/test_genome.maker.output/interproscan \
 --goterms -mode cluster -clusterrunid interproscan \
---appl Pfam,SMART \
 -T /usit/abel/u1/mortema/tmp
 
