@@ -4,3 +4,5 @@ Functional Annotation
 GOblast
 
 interproscan
+
+LUMPY CNV
