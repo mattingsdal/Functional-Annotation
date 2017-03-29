@@ -1,0 +1,23 @@
+setwd("C:/Users/mortenma/Desktop/Rfolder")
+library(topGO)
+actinopterygii=read.table("actinopterygii_7898_OrthoDB9_orthogroup_info.txt",fill=T,header=1)
+geneID2GO <- readMappings(file = "actinopterygii_universe.txt")  
+geneUniverse <- names(geneID2GO) 
+
+corkwing=read.table("full_table_Symphodus_melops_BUSCO.tsv",header=FALSE)
+missing=as.character(corkwing[corkwing[,2]=="Missing",1])
+duplicated=as.character(corkwing[corkwing[,2]=="Duplicated",1])
+
+geneList <- factor(as.integer(geneUniverse %in% duplicated))
+names(geneList) <- geneUniverse
+
+myGOdata <- new("topGOdata", description="My project", ontology="BP", allGenes=geneList,  annot = annFUN.gene2GO, gene2GO = geneID2GO)
+ 
+## Fisher's 
+resultFisher <- runTest(myGOdata, algorithm="classic", statistic="fisher")
+allRes <- GenTable(myGOdata, classicFisher = resultFisher, orderBy = "resultFisher", ranksOf = "classicFisher", topNodes = 10)
+showSigOfNodes(myGOdata, score(resultFisher), firstSigNodes = 5, useInfo ='all')
+
+# make figure
+printGraph(myGOdata, resultFisher, firstSigNodes = 5, fn.prefix = "tGO", useInfo = "all", pdfSW = TRUE)
+
