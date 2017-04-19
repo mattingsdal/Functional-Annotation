@@ -17,4 +17,10 @@ perl -lne 'print $1 if /\tmRNA\t.+ID=([^;]+).+Pfam(.+?);/ ' Symphodus_melops.all
 
 # extract gene predictions with Pfam domains
 ../fgrep.pl -f Symphodus_melops.all.gff.aed-1.0.only.PFAM.ids Symphodus_melops.all.gff.aed-1.0.wPFAM.gff -d "=|;|,|:" >Symphodus_melops.all.gff.aed-1.0.onlyPFAM.gff
+grep -w Pfam Symphodus_melops.all.gff.aed-1.0.onlyPFAM.gff >Pfam.genes
+awk '{print $1"\t"$4"\t"$5"\t"$9}' Pfam.genes | sed 's/_//g' >Pfam.genes.bed
 
+## calculate TajimasD
+vcftools --gzvcf freebayes.SNPs.filtered.final.recode.intersect.edit.vcf --keep norway.id --out norway_50kb --TajimaD 50000
+
+# assign genes a TajimaD value
